@@ -526,9 +526,13 @@
         document.getElementById('sum_s_dob').innerText = document.getElementById('s_dob').value;
         document.getElementById('sum_s_phone').innerText = document.getElementById('s_phone').value;
         
-        const g = document.getElementById('grade').value;
-        const m = (g === 'י') ? translations[currentLang].major_prefix + document.getElementById('major').options[document.getElementById('major').selectedIndex].text + ')' : '';
-        document.getElementById('sum_grade').innerText = translations[currentLang].grade_prefix + document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text.replace(translations[currentLang].grade_prefix.trim(), '').trim() + m;
+       const gradeSelect = document.getElementById('grade');
+const majorSelect = document.getElementById('major');
+
+const g = gradeSelect.value;
+const m = (gradeSelect.selectedIndex >= 2 && majorSelect.value !== '') ? translations[currentLang].major_prefix + majorSelect.options[majorSelect.selectedIndex].text : '';
+
+document.getElementById('sum_grade').innerText = translations[currentLang].grade_prefix + gradeSelect.options[gradeSelect.selectedIndex].text + m;
 
         document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
         document.getElementById('success-msg').style.display = 'block';
