@@ -236,12 +236,12 @@
         <div class="step" id="step3">
             <h2 data-i18n="step3_title">שלב 3: בחירת מסלול</h2>
             <label data-i18n="grade_label">שכבה:</label>
-            <select id="grade" onchange="toggleMajor()" required>
-                <option value="" data-i18n="grade_select">בחר שכבה</option>
-                <option value="ט" data-i18n="grade9_option">שכבה ט'</option>
-                <option value="י" data-i18n="grade10_option">שכבה י'</option>
-                <option value="י״א" data-i18n="grade11_option">שכבה י״א</option>
-            </select>
+           <select id="grade" onchange="toggleMajor()" required>
+    <option value="" data-i18n="grade_select">בחר שכבה</option>
+    <option value="9" data-i18n="grade9_option">שכבה ט'</option>
+    <option value="10" data-i18n="grade10_option">שכבה י'</option>
+    <option value="11" data-i18n="grade11_option">שכבה י״א</option>
+</select>
             <div id="major_box" style="display:none">
                 <label data-i18n="major_label">מגמה:</label>
                 <select id="major">
@@ -490,10 +490,17 @@
         if(valid) goToStep(next);
     }
 
-    function toggleMajor() {
-        const grade = document.getElementById('grade').value;
-        document.getElementById('major_box').style.display = (grade !== '' && grade !== 'ט') ? 'block' : 'none';
+   function toggleMajor() {
+    const grade = document.getElementById('grade').value;
+    const majorBox = document.getElementById('major_box');
+
+    if (grade === '10' || grade === '11') {
+        majorBox.style.display = 'block';
+    } else {
+        majorBox.style.display = 'none';
+        document.getElementById('major').value = '';
     }
+}
 
     function handleFile(input) {
         const file = input.files[0];
