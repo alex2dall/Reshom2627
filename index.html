@@ -501,6 +501,19 @@
         document.getElementById('major').value = '';
     }
 }
+    function getGradeMajorText() {
+    const gradeSelect = document.getElementById('grade');
+    const majorSelect = document.getElementById('major');
+
+    const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
+    const majorText = majorSelect.options[majorSelect.selectedIndex].text;
+
+    if (gradeSelect.selectedIndex >= 2 && majorText) {
+        return translations[currentLang].grade_prefix + gradeText + translations[currentLang].major_prefix + majorText;
+    }
+
+    return translations[currentLang].grade_prefix + gradeText;
+}
 
     function handleFile(input) {
         const file = input.files[0];
@@ -546,7 +559,7 @@ document.getElementById('sum_grade').innerText = translations[currentLang].grade
             s_id: document.getElementById('s_id_val').value,
             s_dob: document.getElementById('s_dob').value,
             s_phone: document.getElementById('s_phone').value,
-            grade_major: document.getElementById('sum_grade').innerText,
+           grade_major: getGradeMajorText(),
             // זו השורה החדשה והחשובה:
             id_photo: uploadedFileData 
         };
