@@ -492,7 +492,7 @@
 
     function toggleMajor() {
         const grade = document.getElementById('grade').value;
-        document.getElementById('major_box').style.display = (grade === 'י' || grade === 'יא' || grade === 'י״א') ? 'block' : 'none';
+        document.getElementById('major_box').style.display = (grade !== '' && grade !== 'ט') ? 'block' : 'none';
     }
 
     function handleFile(input) {
