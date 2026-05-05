@@ -508,9 +508,11 @@ function toggleMajor() {
 
     if (grade === '9') {
         majorSelect.innerHTML = `
-            <option value="ט כללי">ט כללי</option>
+            <option value="ט כללי" selected>ט כללי</option>
         `;
-    } else {
+    }
+
+    if (grade === '10' || grade === '11') {
         majorSelect.innerHTML = `
             <option value="" data-i18n="major_select">בחר מגמה</option>
             <option value="חשמל" data-i18n="electricity_option">חשמל</option>
@@ -519,14 +521,14 @@ function toggleMajor() {
         `;
     }
 }
-    function getGradeMajorText() {
+function getGradeMajorText() {
     const gradeSelect = document.getElementById('grade');
     const majorSelect = document.getElementById('major');
 
     const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
-    const majorText = majorSelect.options[majorSelect.selectedIndex].text;
+    const majorText = majorSelect.options[majorSelect.selectedIndex] ? majorSelect.options[majorSelect.selectedIndex].text : '';
 
-    if (gradeSelect.selectedIndex >= 2 && majorText) {
+    if (majorText !== '') {
         return translations[currentLang].grade_prefix + gradeText + translations[currentLang].major_prefix + majorText;
     }
 
