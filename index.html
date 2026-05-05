@@ -483,50 +483,38 @@
     }
 
     function validateAndNext(current, next) {
-    const activeStep = document.getElementById('step' + current);
-    const inputs = activeStep.querySelectorAll('input[required], select[required]');
-    let valid = true;
-
-    inputs.forEach(function(input) {
-        if (!input.checkValidity()) {
-            input.reportValidity();
-            valid = false;
-        }
-    });
-
-    if (valid) {
-        goToStep(next);
+        const activeStep = document.getElementById('step' + current);
+        const inputs = activeStep.querySelectorAll('input[required], select[required]');
+        let valid = true;
+        inputs.forEach(i => { if(!i.checkValidity()) { i.reportValidity(); valid = false; } });
+        if(valid) goToStep(next);
     }
-}
 
-function toggleMajor() {
+   function toggleMajor() {
     const grade = document.getElementById('grade').value;
     const majorBox = document.getElementById('major_box');
-    const majorSelect = document.getElementById('major');
 
     if (grade === '10' || grade === '11') {
         majorBox.style.display = 'block';
-        majorSelect.required = true;
     } else {
         majorBox.style.display = 'none';
-        majorSelect.required = false;
-        majorSelect.value = '';
+        document.getElementById('major').value = '';
     }
 }
-
-function getGradeMajorText() {
+    function getGradeMajorText() {
     const gradeSelect = document.getElementById('grade');
     const majorSelect = document.getElementById('major');
 
     const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
+    const majorText = majorSelect.options[majorSelect.selectedIndex].text;
 
-    if ((gradeSelect.value === '10' || gradeSelect.value === '11') && majorSelect.selectedIndex >= 0) {
-        const majorText = majorSelect.options[majorSelect.selectedIndex].text;
+    if (gradeSelect.selectedIndex >= 2 && majorText) {
         return translations[currentLang].grade_prefix + gradeText + translations[currentLang].major_prefix + majorText;
     }
 
     return translations[currentLang].grade_prefix + gradeText;
 }
+
     function handleFile(input) {
         const file = input.files[0];
         const reader = new FileReader();
@@ -576,7 +564,8 @@ document.getElementById('sum_grade').innerText = translations[currentLang].grade
             id_photo: uploadedFileData 
         };
         
-        fetch('https://script.google.com/macros/s/AKfycbx9yr-8ImfU6cp21hK7-65Grf4EaKhkMbDSlxOf08nAhl_5H5VgmvX9NQXgcHM4-Xs/exec', {
+
+        fetch('https://script.google.com/macros/s/AKfycbzlWLv8tsNmvhFAXbKwlragbmgpaMfaRq-l0dml6laFRMnRbRB3i02cUDlTJM2Sni3d/exec', {
             method: 'POST',
             mode: 'no-cors', 
             body: JSON.stringify(formData)
