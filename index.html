@@ -524,8 +524,41 @@
         }
         if(file) reader.readAsDataURL(file);
     }
+function validateFormBeforeSummary() {
+    const pId = document.getElementById('p_id_val').value.trim();
+    const sId = document.getElementById('s_id_val').value.trim();
+    const pPhone = document.getElementById('p_phone').value.trim();
+    const sPhone = document.getElementById('s_phone').value.trim();
 
+    const idRegex = /^[0-9]{9}$/;
+    const phoneRegex = /^[0-9]{9,10}$/;
+
+    if (!idRegex.test(pId)) {
+        alert(currentLang === 'ar' ? 'رقم هوية ولي الأمر يجب أن يتكوّن من 9 أرقام' : 'תעודת זהות הורה חייבת לכלול בדיוק 9 ספרות');
+        return false;
+    }
+
+    if (!idRegex.test(sId)) {
+        alert(currentLang === 'ar' ? 'رقم هوية الطالب يجب أن يتكوّن من 9 أرقام' : 'תעודת זהות תלמיד חייבת לכלול בדיוק 9 ספרות');
+        return false;
+    }
+
+    if (!phoneRegex.test(pPhone)) {
+        alert(currentLang === 'ar' ? 'رقم هاتف ولي الأمر يجب أن يتكوّن من 9 إلى 10 أرقام' : 'מספר טלפון הורה חייב לכלול 9 עד 10 ספרות');
+        return false;
+    }
+
+    if (!phoneRegex.test(sPhone)) {
+        alert(currentLang === 'ar' ? 'رقم هاتف الطالب يجب أن يتكوّن من 9 إلى 10 أرقام' : 'מספר טלפון תלמיד חייב לכלול 9 עד 10 ספרות');
+        return false;
+    }
+
+    return true;
+}
     function generateSummary() {
+        if (!validateFormBeforeSummary()) {
+    return;
+}
         if(!document.getElementById('file_input').files[0]) {
             alert(translations[currentLang].alert_file);
             return;
