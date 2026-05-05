@@ -490,25 +490,28 @@
         if(valid) goToStep(next);
     }
 
-   function toggleMajor() {
+function toggleMajor() {
     const grade = document.getElementById('grade').value;
     const majorBox = document.getElementById('major_box');
+    const majorSelect = document.getElementById('major');
 
     if (grade === '10' || grade === '11') {
         majorBox.style.display = 'block';
+        majorSelect.required = true;
     } else {
         majorBox.style.display = 'none';
-        document.getElementById('major').value = '';
+        majorSelect.required = false;
+        majorSelect.value = '';
     }
-}
+}}
     function getGradeMajorText() {
     const gradeSelect = document.getElementById('grade');
     const majorSelect = document.getElementById('major');
 
     const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
-    const majorText = majorSelect.options[majorSelect.selectedIndex].text;
 
-    if (gradeSelect.selectedIndex >= 2 && majorText) {
+    if (gradeSelect.value === '10' || gradeSelect.value === '11') {
+        const majorText = majorSelect.options[majorSelect.selectedIndex].text;
         return translations[currentLang].grade_prefix + gradeText + translations[currentLang].major_prefix + majorText;
     }
 
