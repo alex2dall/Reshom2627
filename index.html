@@ -244,7 +244,7 @@
 </select>
             <div id="major_box" style="display:none">
                 <label data-i18n="major_label">מגמה:</label>
-                <select id="major"
+                <select id="major">
                     <option value="חשמל" data-i18n="electricity_option">חשמל</option>
                     <option value="אוטוטרוניקה" data-i18n="autotronics_option">אוטוטרוניקה</option>
                     <option value="עיבוד שבבי CNC" data-i18n="cnc_option">עיבוד שבבי CNC</option>
@@ -490,20 +490,31 @@
         if(valid) goToStep(next);
     }
 
-function toggleMajor() {
+   function toggleMajor() {
     const grade = document.getElementById('grade').value;
     const majorBox = document.getElementById('major_box');
-    const majorSelect = document.getElementById('major');
 
     if (grade === '10' || grade === '11') {
         majorBox.style.display = 'block';
-        majorSelect.required = true;
     } else {
         majorBox.style.display = 'none';
-        majorSelect.required = false;
-        majorSelect.value = '';
+        document.getElementById('major').value = '';
     }
 }
+    function getGradeMajorText() {
+    const gradeSelect = document.getElementById('grade');
+    const majorSelect = document.getElementById('major');
+
+    const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
+    const majorText = majorSelect.options[majorSelect.selectedIndex].text;
+
+    if (gradeSelect.selectedIndex >= 2 && majorText) {
+        return translations[currentLang].grade_prefix + gradeText + translations[currentLang].major_prefix + majorText;
+    }
+
+    return translations[currentLang].grade_prefix + gradeText;
+}
+
     function handleFile(input) {
         const file = input.files[0];
         const reader = new FileReader();
