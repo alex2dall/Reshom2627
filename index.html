@@ -244,7 +244,7 @@
 </select>
             <div id="major_box" style="display:none">
                 <label data-i18n="major_label">מגמה:</label>
-                <select id="major">
+                <select id="major" disabled>
                     <option value="חשמל" data-i18n="electricity_option">חשמל</option>
                     <option value="אוטוטרוניקה" data-i18n="autotronics_option">אוטוטרוניקה</option>
                     <option value="עיבוד שבבי CNC" data-i18n="cnc_option">עיבוד שבבי CNC</option>
@@ -490,17 +490,22 @@
         if(valid) goToStep(next);
     }
 
-   function toggleMajor() {
+function toggleMajor() {
     const grade = document.getElementById('grade').value;
     const majorBox = document.getElementById('major_box');
+    const majorSelect = document.getElementById('major');
 
     if (grade === '10' || grade === '11') {
         majorBox.style.display = 'block';
+        majorSelect.disabled = false;
+        majorSelect.required = true;
     } else {
         majorBox.style.display = 'none';
-        document.getElementById('major').value = '';
+        majorSelect.required = false;
+        majorSelect.disabled = true;
+        majorSelect.value = '';
     }
-}
+}}
    function getGradeMajorText() {
     const gradeSelect = document.getElementById('grade');
     const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
