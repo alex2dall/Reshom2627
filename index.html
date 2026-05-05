@@ -490,15 +490,33 @@
         if(valid) goToStep(next);
     }
 
-   function toggleMajor() {
+function toggleMajor() {
     const grade = document.getElementById('grade').value;
     const majorBox = document.getElementById('major_box');
+    const majorSelect = document.getElementById('major');
 
-    if (grade === '10' || grade === '11') {
-        majorBox.style.display = 'block';
-    } else {
+    majorSelect.innerHTML = '';
+
+    if (grade === '') {
         majorBox.style.display = 'none';
-        document.getElementById('major').value = '';
+        majorSelect.required = false;
+        return;
+    }
+
+    majorBox.style.display = 'block';
+    majorSelect.required = true;
+
+    if (grade === '9') {
+        majorSelect.innerHTML = `
+            <option value="ט כללי">ט כללי</option>
+        `;
+    } else {
+        majorSelect.innerHTML = `
+            <option value="" data-i18n="major_select">בחר מגמה</option>
+            <option value="חשמל" data-i18n="electricity_option">חשמל</option>
+            <option value="אוטוטרוניקה" data-i18n="autotronics_option">אוטוטרוניקה</option>
+            <option value="עיבוד שבבי CNC" data-i18n="cnc_option">עיבוד שבבי CNC</option>
+        `;
     }
 }
     function getGradeMajorText() {
