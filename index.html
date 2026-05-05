@@ -501,20 +501,22 @@
         document.getElementById('major').value = '';
     }
 }
-    function getGradeMajorText() {
+   function getGradeMajorText() {
     const gradeSelect = document.getElementById('grade');
-    const majorSelect = document.getElementById('major');
-
     const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
-    const majorText = majorSelect.options[majorSelect.selectedIndex].text;
 
-    if (gradeSelect.selectedIndex >= 2 && majorText) {
+    if (gradeSelect.value === '9') {
+        return translations[currentLang].grade_prefix + gradeText;
+    }
+
+    if (gradeSelect.value === '10' || gradeSelect.value === '11') {
+        const majorSelect = document.getElementById('major');
+        const majorText = majorSelect.options[majorSelect.selectedIndex].text;
         return translations[currentLang].grade_prefix + gradeText + translations[currentLang].major_prefix + majorText;
     }
 
     return translations[currentLang].grade_prefix + gradeText;
 }
-
     function handleFile(input) {
         const file = input.files[0];
         const reader = new FileReader();
