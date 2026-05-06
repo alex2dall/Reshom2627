@@ -640,6 +640,11 @@ document.addEventListener('DOMContentLoaded', setupSignaturePad);
     alert(currentLang === 'ar' ? 'التوقيع إلزامي قبل إرسال النموذج' : 'חובה לחתום לפני שליחת הטופס');
     return;
 }
+        const signatureCanvas = document.getElementById('signature_pad');
+
+if (signatureCanvas) {
+    signatureData = signatureCanvas.toDataURL('image/png');
+}
         document.getElementById('sum_p_name').innerText = (document.getElementById('p_role').value === 'אבא' ? translations[currentLang].father_display : translations[currentLang].mother_display) + ': ' + document.getElementById('p_first').value + ' ' + document.getElementById('p_last').value;
         document.getElementById('sum_p_id').innerText = document.getElementById('p_id_val').value;
         document.getElementById('sum_p_phone').innerText = document.getElementById('p_phone').value;
